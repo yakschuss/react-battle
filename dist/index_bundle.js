@@ -54,7 +54,7 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(35);
 	var routes = __webpack_require__(173);
-	var Raven = __webpack_require__(240);
+	var Raven = __webpack_require__(243);
 
 	var sentryKey = 'e6a70a13b3ae4bb0a5bb26f1b2d8c0d3';
 	var sentryApp = '94649';
@@ -21436,7 +21436,8 @@
 
 	var Main = __webpack_require__(237);
 	var Home = __webpack_require__(238);
-	var PromptContainer = __webpack_require__(239);
+	var PromptContainer = __webpack_require__(240);
+	var ConfirmBattleContainer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../containers/ConfirmBattleContainer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var routes = React.createElement(
 	  Router,
@@ -21446,7 +21447,8 @@
 	    { path: '/', component: Main },
 	    React.createElement(IndexRoute, { component: Home }),
 	    React.createElement(Route, { path: 'playerOne', header: 'Player One', component: PromptContainer }),
-	    React.createElement(Route, { path: 'playerTwo/:playerOne', header: 'Player Two', component: PromptContainer })
+	    React.createElement(Route, { path: 'playerTwo/:playerOne', header: 'Player Two', component: PromptContainer }),
+	    React.createElement(Route, { path: 'battle', component: ConfirmBattleContainer })
 	  )
 	);
 
@@ -27129,7 +27131,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2);
-	var transparentBg = __webpack_require__(248).transparentBg;
+	var transparentBg = __webpack_require__(239).transparentBg;
 	var ReactRouter = __webpack_require__(174);
 	var Link = ReactRouter.Link;
 
@@ -27168,10 +27170,22 @@
 
 /***/ },
 /* 239 */
+/***/ function(module, exports) {
+
+	var styles = {
+	  transparentBg: {
+	    background: 'transparent'
+	  }
+	};
+
+	module.exports = styles;
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2);
-	var Prompt = __webpack_require__(249);
+	var Prompt = __webpack_require__(241);
 
 	var PromptContainer = React.createClass({
 	  displayName: 'PromptContainer',
@@ -27228,7 +27242,68 @@
 	module.exports = PromptContainer;
 
 /***/ },
-/* 240 */
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var PropTypes = React.PropTypes;
+	var transparentBg = __webpack_require__(239).transparentBg;
+
+	function Prompt(props) {
+
+	  return React.createElement(
+	    'div',
+	    { className: 'jumbotron col-sm-6 col-sm-offset-3 text-center', style: transparentBg },
+	    React.createElement(
+	      'h1',
+	      null,
+	      props.header
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'col-sm-12' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: props.onSubmitUser },
+	        React.createElement(
+	          'div',
+	          { className: 'form-group' },
+	          React.createElement('input', {
+	            className: 'form-control',
+	            placeholder: 'Github Username',
+	            onChange: props.onUpdateUser,
+	            value: props.username,
+	            type: 'text'
+	          })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'form-group col-sm-4 col-sm-offset-4' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'btn btn-block btn-success',
+	              type: 'submit' },
+	            'Continue'
+	          )
+	        )
+	      )
+	    )
+	  );
+	}
+
+	Prompt.propTypes = {
+	  header: PropTypes.string.isRequired,
+	  onUpdateUser: PropTypes.func.isRequired,
+	  onSubmitUser: PropTypes.func.isRequired,
+	  username: PropTypes.string.isRequired
+	};
+
+	module.exports = Prompt;
+
+/***/ },
+/* 242 */,
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27239,7 +27314,7 @@
 
 	'use strict';
 
-	var RavenConstructor = __webpack_require__(241);
+	var RavenConstructor = __webpack_require__(244);
 
 	var _Raven = window.Raven;
 
@@ -27262,16 +27337,16 @@
 
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*global XDomainRequest:false*/
 	'use strict';
 
-	var TraceKit = __webpack_require__(242);
-	var RavenConfigError = __webpack_require__(244);
-	var utils = __webpack_require__(243);
-	var stringify = __webpack_require__(245);
+	var TraceKit = __webpack_require__(245);
+	var RavenConfigError = __webpack_require__(247);
+	var utils = __webpack_require__(246);
+	var stringify = __webpack_require__(248);
 
 	var isFunction = utils.isFunction;
 	var isUndefined = utils.isUndefined;
@@ -27289,7 +27364,7 @@
 	var isString = utils.isString;
 	var fill = utils.fill;
 
-	var wrapConsoleMethod = __webpack_require__(246).wrapMethod;
+	var wrapConsoleMethod = __webpack_require__(249).wrapMethod;
 
 	var dsnKeys = 'source protocol user pass host port path'.split(' '),
 	    dsnPattern = /^(?:(\w+):)?\/\/(?:(\w+)(:\w+)?@)?([\w\.-]+)(?::(\d+))?(\/.*)/;
@@ -28655,12 +28730,12 @@
 
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(243);
+	var utils = __webpack_require__(246);
 
 	var hasKey = utils.hasKey;
 	var isString = utils.isString;
@@ -29440,7 +29515,7 @@
 
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports) {
 
 	/*eslint no-extra-parens:0*/
@@ -29718,7 +29793,7 @@
 
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29734,7 +29809,7 @@
 
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports) {
 
 	exports = module.exports = stringify
@@ -29767,7 +29842,7 @@
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29808,79 +29883,6 @@
 	    wrapMethod: wrapMethod
 	};
 
-
-/***/ },
-/* 247 */,
-/* 248 */
-/***/ function(module, exports) {
-
-	var styles = {
-	  transparentBg: {
-	    background: 'transparent'
-	  }
-	};
-
-	module.exports = styles;
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-	var PropTypes = React.PropTypes;
-	var transparentBg = __webpack_require__(248).transparentBg;
-
-	function Prompt(props) {
-
-	  return React.createElement(
-	    'div',
-	    { className: 'jumbotron col-sm-6 col-sm-offset-3 text-center', style: transparentBg },
-	    React.createElement(
-	      'h1',
-	      null,
-	      props.header
-	    ),
-	    React.createElement(
-	      'div',
-	      { className: 'col-sm-12' },
-	      React.createElement(
-	        'form',
-	        { onSubmit: props.onSubmitUser },
-	        React.createElement(
-	          'div',
-	          { className: 'form-group' },
-	          React.createElement('input', {
-	            className: 'form-control',
-	            placeholder: 'Github Username',
-	            onChange: props.onUpdateUser,
-	            value: props.username,
-	            type: 'text'
-	          })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'form-group col-sm-4 col-sm-offset-4' },
-	          React.createElement(
-	            'button',
-	            {
-	              className: 'btn btn-block btn-success',
-	              type: 'submit' },
-	            'Continue'
-	          )
-	        )
-	      )
-	    )
-	  );
-	}
-
-	Prompt.propTypes = {
-	  header: PropTypes.string.isRequired,
-	  onUpdateUser: PropTypes.func.isRequired,
-	  onSubmitUser: PropTypes.func.isRequired,
-	  username: PropTypes.string.isRequired
-	};
-
-	module.exports = Prompt;
 
 /***/ }
 /******/ ]);
